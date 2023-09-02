@@ -111,12 +111,22 @@ public class Tarefa {
     @Override
     public String toString() {
         return
-                "ID: " + this.idObjeto +
+                "ID:" + this.idObjeto +
                 "\tNOME:" + this.nome +
-                "\tCATEGORIA: " + this.categoria +
-                "\tPRIORIDADE: " + this.prioridade +
+                "\tCATEGORIA:" + this.categoria +
+                "\tPRIORIDADE:" + this.prioridade +
                 "\tDATA TÉRMINO: " + this.dataTermino.getDayOfMonth() + "/" + this.dataTermino.getMonthValue() + "/" + this.dataTermino.getYear() +
-                "\t" + (this.alarme == true ? "\tPRAZO (HH/MM): " + this.getHoraConclusao(): "") +
+                "\t" + (this.alarme == true ? "\tPRAZO (HH/MM):" + this.getHoraConclusao(): "") +
+                "\tSTATUS:" + this.status;
+    }
+
+    public String toFileString() {
+        return "ID:" + this.idObjeto +
+                "\tNOME:" + this.nome +
+                "\tCATEGORIA:" + this.categoria +
+                "\tPRIORIDADE:" + this.prioridade +
+                "\tDATA TÉRMINO:" + this.dataTermino.getDayOfMonth() + "/" + this.dataTermino.getMonthValue() + "/" + this.dataTermino.getYear() +
+                "\t" + (this.alarme == true ? "\tPRAZO (HH/MM):" + this.getHoraConclusao(): "") +
                 "\tSTATUS:" + this.status;
     }
 

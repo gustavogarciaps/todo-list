@@ -1,5 +1,8 @@
 package br.com.acelerazg.controller;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -113,5 +116,16 @@ public class GerenciamentoTarefas {
         this.tarefas.sort((t1, t2) -> t1.getDataTermino().compareTo(t2.getDataTermino()));
 
         return this.tarefas;
+    }
+
+    public void saveTarefas() {
+        try (PrintWriter writer = new PrintWriter(new FileWriter("tarefas.txt"))) {
+            tarefas.forEach((item) ->{
+                writer.println(item.toFileString());
+            });
+            System.out.println("Lista de tarefas salva com sucesso.");
+        } catch (IOException e) {
+            System.err.println("Erro ao salvar a lista de tarefas: " + e.getMessage());
+        }
     }
 }

@@ -60,10 +60,11 @@ public class Application {
                     System.out.println("Tarefas com vencimento HOJE");
                     tarefas.getTarefasVencimentoHoje().forEach( (item) -> {
                         System.out.println( "TAREFA: " + item.getNome() +
-                                "\t VENCE EM: " + item.getHoraConclusao());
+                                "\t VENCE HOJE, ÀS: " + item.getHoraConclusao() + " HORAS.");
                     });
                 }
                 case 4 -> {
+                    tarefas.saveTarefas();
                     return;
                 }
                 default -> {
