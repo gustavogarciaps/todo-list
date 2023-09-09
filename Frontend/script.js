@@ -154,15 +154,15 @@ const preencherTabela = () => {
 
           const definirPrioridade = () => {
                switch (tarefa.prioridade) {
-                    case 1:
+                    case 5:
                          return "Muito Baixa";
-                    case 2:
+                    case 4:
                          return "Baixa";
                     case 3:
                          return "Média";
-                    case 4:
+                    case 2:
                          return "Alta";
-                    case 5:
+                    case 1:
                          return "Muito Alta";
                     default:
                          return "Não definida";
@@ -177,7 +177,8 @@ const preencherTabela = () => {
                     <td>${tarefa.dataTermino.toString()}</td>
                     <td>${definirPrioridade()}</td>
                     <td><i class="fa fa-edit" onclick=alert(${index})></i></td>
-                    <td><i class="fa fa-trash" onclick=deletarTarefa(${index})></i></td>
+                    <td><i class="fa fa-trash" onclick="capturarTarefa(${index})" data-bs-toggle="modal" data-bs-target="#excluir_tarefa"></i></td>
+
                </tr>
          `;
 
@@ -186,14 +187,23 @@ const preencherTabela = () => {
      tabela.innerHTML = tabelaHTML;
 }
 
+const capturarTarefa = (index) => {
+     const tarefaNome = gerenciamentoTarefas.listarTarefas()[index].nome;
+     document.querySelector('#tarefa_nome').textContent = tarefaNome;
+     document.querySelector('#tarefa_index').textContent = index;
+}
+
+const confirmarExclusao = () => {
+     const index = parseInt(document.querySelector('#tarefa_index').textContent);
+     deletarTarefa(index);
+}
+
 const deletarTarefa = (index) => {
 
      gerenciamentoTarefas.removerTarefa(gerenciamentoTarefas.listarTarefas()[index]);
 
      const tarefasJSON = JSON.stringify(gerenciamentoTarefas.listarTarefas());
      localStorage.setItem('tarefas', tarefasJSON);
-
-     console.log(gerenciamentoTarefas.listarTarefas())
 
      preencherTabela();
 
