@@ -114,12 +114,11 @@ const capturarFormularioCriarTarefa = () => {
 
           tarefa.setNome(document.getElementById("nome_tarefa").value);
           tarefa.setDescricao(document.getElementById("descricao_tarefa").value);
-          tarefa.setPrioridade(document.querySelector('input[name="prioridade_tarefa"]:checked').value);
+          tarefa.setPrioridade(parseInt(document.querySelector('input[name="prioridade_tarefa"]:checked').value));
           tarefa.setStatus(document.querySelector('input[name="status_tarefa"]:checked').value);
           tarefa.setCategoria(document.getElementById("categoria_tarefa").value);
           tarefa.setDataTermino(document.getElementById("data_termino_tarefa").value);
           tarefa.setAlarme(document.querySelector('input[name="alarme_tarefa"]:checked').value);
-          //tarefa.setAlarme(true);
           tarefa.setHoraConclusao(document.getElementById("hora_conclusao_tarefa").value);
 
           gerenciamentoTarefas.adicionarTarefa(tarefa);
@@ -127,6 +126,7 @@ const capturarFormularioCriarTarefa = () => {
           const tarefasJSON = JSON.stringify(gerenciamentoTarefas.listarTarefas());
           localStorage.setItem('tarefas', tarefasJSON);
 
+          preencherTabela();
      })
 
 };
@@ -138,9 +138,54 @@ const limparFormularioCriarTarefa = () => {
 const tarefasJSON = localStorage.getItem('tarefas');
 const tarefas = JSON.parse(tarefasJSON);
 
-tarefas.forEach(element => {
-     gerenciamentoTarefas.adicionarTarefa(element);
-});
+if (tarefas !== null) {
+     tarefas.forEach(element => {
+          gerenciamentoTarefas.adicionarTarefa(element);
+     });
+}
 
+const preencherTabela = () => {
 
-console.log(gerenciamentoTarefas.listarTarefas());
+     const tabela = document.querySelector("#lista_tarefas table tbody");
+     let tabelaHTML = "";
+
+     gerenciamentoTarefas.listarTarefas().forEach((tarefa, index) => {
+          console.log(tarefa);
+
+          const definirPrioridade = () => {
+               switch (tarefa.prioridade) {
+                    case 1:
+                         return "Muito Baixa";
+                    case 2:
+                         return "Baixa";
+                    case 3:
+                         return "Média";
+                    case 4:
+                         return "Alta";
+                    case 5:
+                         return "Muito Alta";
+                    default:
+                         return "Não definida";
+               }
+          }
+
+          tabelaHTML += `
+               <tr>
+                    <td>${index + 1}</td>
+                    <td>${tarefa.nome}</td>
+                    <td>${tarefa.descricao}</td>
+                    <td>${tarefa.dataTermino.toString()}</td>
+                    <td>${definirPrioridade()}</td>
+                    <td><i class="fa fa-edit"></i></td>
+                    <td><i class="fa fa-trash"></i></td>
+               </tr>
+         `;
+
+     });
+
+     tabela.innerHTML = tabelaHTML;
+}
+
+if (tarefas !== null) {
+     preencherTabela();
+}
