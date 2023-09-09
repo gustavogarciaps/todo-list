@@ -48,13 +48,12 @@
 
                               <!-- Button trigger modal -->
                               <button type="button" class="btn btn-primary btn-lg px-4 gap-3" data-bs-toggle="modal"
-                                   data-bs-target="#modal_tarefas">
-                                   Criar nova Tarefa
+                                   data-bs-target="#modal_tarefas" onclick="limparFormularioCriarTarefa()">
+                                   Nova tarefa
                               </button>
 
                               <a href="#lista_tarefas">
-                                   <button type="button" class="btn btn-outline-secondary btn-lg px-4">Lista de
-                                        Tarefas</button>
+                                   <button type="button" class="btn btn-outline-secondary btn-lg px-4">Ver minhas tarefas</button>
                               </a>
                          </div>
                     </div>
@@ -66,7 +65,7 @@
                     <div class="modal-dialog">
                          <div class="modal-content">
                               <div class="modal-header">
-                                   <h5 class="modal-title" id="modal_tarefas">Criar nova Tarefa</h5>
+                                   <h5 class="modal-title" id="modal_tarefas">Tarefa</h5>
                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                               </div>
@@ -75,6 +74,8 @@
                                    <form class="needs-validation" novalidate id="forms_criar_tarefa">
 
                                         <div class="row g-3">
+
+                                             <span hidden="false" id="index_tarefa_editar"></span>
 
                                              <div class="col-sm-12">
                                                   <label for="nome_tarefa" class="form-label">Título da Tarefa:</label>
@@ -189,8 +190,9 @@
 
                                         <button type="button" class="btn btn-secondary"
                                              data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" id="capturar_formulario"
-                                             onclick="capturarFormularioCriarTarefa()">Salvar</button>
+                                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"
+                                             id="capturar_formulario"
+                                             onclick="criarTarefa()">Salvar</button>
 
                                    </form>
                               </div>
@@ -210,8 +212,8 @@
                               </div>
                               <div class="modal-body">
                                    Tem certeza de que deseja excluir a tarefa:
-                                   <span id="tarefa_index" hidden="false"></span>
-                                   <span id="tarefa_nome"></span>?
+                                   <span id="tarefa_index_excluir" hidden="false"></span>
+                                   <span id="tarefa_nome_excluir"></span>?
                               </div>
                               <div class="modal-footer">
                                    <button type="button" class="btn btn-secondary"
@@ -223,9 +225,9 @@
                     </div>
                </div>
 
-               <div class="px-4 py-5 my-5 text-center" id="lista_tarefas">
+               <hr class="my-4">
 
-                    <h1 class="display-5 fw-bold px-4 py-5">Lista de Tarefas</h1>
+               <div class="px-4 py-2 my-2 text-center" id="lista_tarefas">
 
                     <table class="table table-striped">
                          <thead>
@@ -234,6 +236,7 @@
                                    <th scope="col">Nome</th>
                                    <th scope="col">Descrição</th>
                                    <th scope="col">Data Limite</th>
+                                   <th scope="col">Status</th>
                                    <th scope="col">Prioridade</th>
                                    <th scope="col" colspan="2">Opções</th>
                               </tr>

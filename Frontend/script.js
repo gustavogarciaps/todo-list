@@ -104,7 +104,7 @@ const habilitarCampoAlarme = () => {
 
 const gerenciamentoTarefas = new GerenciamentoTarefas();
 
-const capturarFormularioCriarTarefa = () => {
+const criarTarefa = () => {
 
      document.getElementById("forms_criar_tarefa").addEventListener('submit', function (event) {
 
@@ -175,9 +175,10 @@ const preencherTabela = () => {
                     <td>${tarefa.nome}</td>
                     <td>${tarefa.descricao}</td>
                     <td>${tarefa.dataTermino.toString()}</td>
+                    <td>${tarefa.status}</td>
                     <td>${definirPrioridade()}</td>
-                    <td><i class="fa fa-edit" onclick=alert(${index})></i></td>
-                    <td><i class="fa fa-trash" onclick="capturarTarefa(${index})" data-bs-toggle="modal" data-bs-target="#excluir_tarefa"></i></td>
+                    <td><i class="fa fa-edit" onclick="capturarTarefaEdicao(${index})" data-bs-toggle="modal" data-bs-target="#modal_tarefas"></i></td>
+                    <td><i class="fa fa-trash" style="color:red" onclick="capturarTarefaExclusao(${index})" data-bs-toggle="modal" data-bs-target="#excluir_tarefa"></i></td>
 
                </tr>
          `;
@@ -187,14 +188,30 @@ const preencherTabela = () => {
      tabela.innerHTML = tabelaHTML;
 }
 
-const capturarTarefa = (index) => {
-     const tarefaNome = gerenciamentoTarefas.listarTarefas()[index].nome;
-     document.querySelector('#tarefa_nome').textContent = tarefaNome;
-     document.querySelector('#tarefa_index').textContent = index;
+const capturarTarefaExclusao = (index) => {
+     const tarefa = gerenciamentoTarefas.listarTarefas()[index];
+     document.querySelector('#tarefa_nome_excluir').textContent = tarefa.nome;
+     document.querySelector('#tarefa_index_excluir').textContent = index;
+}
+
+
+const capturarTarefaEdicao = (index) => {
+     const tarefa = gerenciamentoTarefas.listarTarefas()[index];
+
+     console.log(tarefa);
+     
+     document.querySelector('#nome_tarefa').value = tarefa.nome;
+     document.querySelector('#descricao_tarefa').value = tarefa.descricao;
+     document.querySelector('input[name="prioridade_tarefa"][value="' + tarefa.prioridade + '"]').checked = true;
+     document.querySelector('input[name="status_tarefa"][value="' + tarefa.status + '"]').checked = true;
+     document.querySelector('#categoria_tarefa').value = tarefa.categoria;
+     document.querySelector('#data_termino_tarefa').value = tarefa.dataTermino;
+     document.querySelector('input[name="alarme_tarefa"][value="' + tarefa.alarme + '"]').checked = true;
+     document.querySelector('#hora_conclusao_tarefa').value = tarefa.horaConclusao;
 }
 
 const confirmarExclusao = () => {
-     const index = parseInt(document.querySelector('#tarefa_index').textContent);
+     const index = parseInt(document.querySelector('#tarefa_index_excluir').textContent);
      deletarTarefa(index);
 }
 
