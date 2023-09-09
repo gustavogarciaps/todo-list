@@ -108,7 +108,7 @@ const capturarFormularioCriarTarefa = () => {
 
      document.getElementById("forms_criar_tarefa").addEventListener('submit', function (event) {
 
-          //event.preventDefault();
+          event.preventDefault();
 
           const tarefa = new Tarefa();
 
@@ -176,8 +176,8 @@ const preencherTabela = () => {
                     <td>${tarefa.descricao}</td>
                     <td>${tarefa.dataTermino.toString()}</td>
                     <td>${definirPrioridade()}</td>
-                    <td><i class="fa fa-edit"></i></td>
-                    <td><i class="fa fa-trash"></i></td>
+                    <td><i class="fa fa-edit" onclick=alert(${index})></i></td>
+                    <td><i class="fa fa-trash" onclick=deletarTarefa(${index})></i></td>
                </tr>
          `;
 
@@ -185,6 +185,20 @@ const preencherTabela = () => {
 
      tabela.innerHTML = tabelaHTML;
 }
+
+const deletarTarefa = (index) => {
+
+     gerenciamentoTarefas.removerTarefa(gerenciamentoTarefas.listarTarefas()[index]);
+
+     const tarefasJSON = JSON.stringify(gerenciamentoTarefas.listarTarefas());
+     localStorage.setItem('tarefas', tarefasJSON);
+
+     console.log(gerenciamentoTarefas.listarTarefas())
+
+     preencherTabela();
+
+}
+
 
 if (tarefas !== null) {
      preencherTabela();
