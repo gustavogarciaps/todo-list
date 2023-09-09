@@ -106,11 +106,9 @@ const gerenciamentoTarefas = new GerenciamentoTarefas();
 
 const capturarFormularioCriarTarefa = () => {
 
-     const formulario = document.getElementById("forms_criar_tarefa");
-     
-     formulario.addEventListener('submit', function (event) {
+     document.getElementById("forms_criar_tarefa").addEventListener('submit', function (event) {
 
-          event.preventDefault();
+          //event.preventDefault();
 
           const tarefa = new Tarefa();
 
@@ -120,20 +118,29 @@ const capturarFormularioCriarTarefa = () => {
           tarefa.setStatus(document.querySelector('input[name="status_tarefa"]:checked').value);
           tarefa.setCategoria(document.getElementById("categoria_tarefa").value);
           tarefa.setDataTermino(document.getElementById("data_termino_tarefa").value);
-          //          tarefa.setAlarme(document.getElementById('input[name="alarme_tarefa"]:checked').value);
-          tarefa.setAlarme(true);
+          tarefa.setAlarme(document.querySelector('input[name="alarme_tarefa"]:checked').value);
+          //tarefa.setAlarme(true);
           tarefa.setHoraConclusao(document.getElementById("hora_conclusao_tarefa").value);
 
           gerenciamentoTarefas.adicionarTarefa(tarefa);
 
           const tarefasJSON = JSON.stringify(gerenciamentoTarefas.listarTarefas());
           localStorage.setItem('tarefas', tarefasJSON);
-          
+
      })
 
 };
 
+const limparFormularioCriarTarefa = () => {
+     document.getElementById("forms_criar_tarefa").reset();
+};
+
 const tarefasJSON = localStorage.getItem('tarefas');
 const tarefas = JSON.parse(tarefasJSON);
+
+tarefas.forEach(element => {
+     gerenciamentoTarefas.adicionarTarefa(element);
+});
+
 
 console.log(gerenciamentoTarefas.listarTarefas());
