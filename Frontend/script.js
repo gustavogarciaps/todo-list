@@ -87,6 +87,9 @@ const GerenciamentoTarefas = (function () {
                return tarefas.find(function (tarefa) {
                     return tarefa.getNome() === nome;
                });
+          },
+          editarTarefa: function (index, tarefa) {
+               tarefas[index] = tarefa;
           }
      };
 });
@@ -104,7 +107,7 @@ const habilitarCampoAlarme = () => {
 
 const gerenciamentoTarefas = new GerenciamentoTarefas();
 
-const criarTarefa = () => {
+const manipularTarefa = () => {
 
      document.getElementById("forms_criar_tarefa").addEventListener('submit', function (event) {
 
@@ -112,25 +115,48 @@ const criarTarefa = () => {
 
           const index = parseInt(document.querySelector('#index_tarefa_editar').value);
 
-          console.log(`${index} - ${document.querySelector('#index_tarefa_editar').value}`);
+          //console.log(`${index} - ${document.querySelector('#index_tarefa_editar').value}`);
 
-          const tarefa = new Tarefa();
+          if (gerenciamentoTarefas.listarTarefas()[index]) {
+               //console.log("tem objeto")
 
-          tarefa.setNome(document.getElementById("nome_tarefa").value);
-          tarefa.setDescricao(document.getElementById("descricao_tarefa").value);
-          tarefa.setPrioridade(parseInt(document.querySelector('input[name="prioridade_tarefa"]:checked').value));
-          tarefa.setStatus(document.querySelector('input[name="status_tarefa"]:checked').value);
-          tarefa.setCategoria(document.getElementById("categoria_tarefa").value);
-          tarefa.setDataTermino(document.getElementById("data_termino_tarefa").value);
-          tarefa.setAlarme(document.querySelector('input[name="alarme_tarefa"]:checked').value);
-          tarefa.setHoraConclusao(document.getElementById("hora_conclusao_tarefa").value);
+               const tarefa = new Tarefa();
 
-          gerenciamentoTarefas.adicionarTarefa(tarefa);
+               tarefa.setNome(document.getElementById("nome_tarefa").value);
+               tarefa.setDescricao(document.getElementById("descricao_tarefa").value);
+               tarefa.setPrioridade(parseInt(document.querySelector('input[name="prioridade_tarefa"]:checked').value));
+               tarefa.setStatus(document.querySelector('input[name="status_tarefa"]:checked').value);
+               tarefa.setCategoria(document.getElementById("categoria_tarefa").value);
+               tarefa.setDataTermino(document.getElementById("data_termino_tarefa").value);
+               tarefa.setAlarme(document.querySelector('input[name="alarme_tarefa"]:checked').value);
+               tarefa.setHoraConclusao(document.getElementById("hora_conclusao_tarefa").value);
 
-          const tarefasJSON = JSON.stringify(gerenciamentoTarefas.listarTarefas());
-          localStorage.setItem('tarefas', tarefasJSON);
+               gerenciamentoTarefas.editarTarefa(index, tarefa);
 
-          preencherTabela();
+               const tarefasJSON = JSON.stringify(gerenciamentoTarefas.listarTarefas());
+               localStorage.setItem('tarefas', tarefasJSON);
+
+               preencherTabela();
+
+          } else {
+               const tarefa = new Tarefa();
+
+               tarefa.setNome(document.getElementById("nome_tarefa").value);
+               tarefa.setDescricao(document.getElementById("descricao_tarefa").value);
+               tarefa.setPrioridade(parseInt(document.querySelector('input[name="prioridade_tarefa"]:checked').value));
+               tarefa.setStatus(document.querySelector('input[name="status_tarefa"]:checked').value);
+               tarefa.setCategoria(document.getElementById("categoria_tarefa").value);
+               tarefa.setDataTermino(document.getElementById("data_termino_tarefa").value);
+               tarefa.setAlarme(document.querySelector('input[name="alarme_tarefa"]:checked').value);
+               tarefa.setHoraConclusao(document.getElementById("hora_conclusao_tarefa").value);
+
+               gerenciamentoTarefas.adicionarTarefa(tarefa);
+
+               const tarefasJSON = JSON.stringify(gerenciamentoTarefas.listarTarefas());
+               localStorage.setItem('tarefas', tarefasJSON);
+
+               preencherTabela();
+          }
 
 
      });
