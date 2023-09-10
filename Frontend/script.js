@@ -158,7 +158,6 @@ const manipularTarefa = () => {
                preencherTabela();
           }
 
-
      });
 };
 
@@ -181,7 +180,7 @@ const preencherTabela = () => {
      let tabelaHTML = "";
 
      gerenciamentoTarefas.listarTarefas().forEach((tarefa, index) => {
-          console.log(tarefa);
+          //console.log(tarefa);
 
           const definirPrioridade = () => {
                switch (tarefa.prioridade) {
@@ -201,8 +200,18 @@ const preencherTabela = () => {
           }
 
           const formatarData = () => {
-               const data = new Date(tarefa.dataTermino);
-               return data.toString() !== "Invalid Date" ? `${data.getDate()}\/${data.getMonth() + 1}\/${data.getFullYear()}` : "Não definida";;
+               
+               if (!tarefa.dataTermino) {
+                    return "Não definida";
+               }
+
+               const data = String(tarefa.dataTermino);
+
+               dia = data.split("-")[2];
+               mes = data.split("-")[1];
+               ano = data.split("-")[0];     
+
+               return `${dia}/${mes}/${ano}`;
           }
 
           tabelaHTML += `
