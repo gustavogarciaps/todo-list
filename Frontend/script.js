@@ -179,7 +179,7 @@ const preencherTabela = () => {
 
      console.log(tarefas)
 
-     if (tarefas.isEmpty === false) {
+     if (gerenciamentoTarefas.listarTarefas().length > 0) {
           gerenciamentoTarefas.listarTarefas().forEach((tarefa, index) => {
                //console.log(tarefa);
 
