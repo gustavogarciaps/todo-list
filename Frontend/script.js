@@ -104,11 +104,27 @@ const habilitarCampoAlarme = () => {
 
 const gerenciamentoTarefas = new GerenciamentoTarefas();
 
+const definirComando = () => {
+
+     const index = document.getElementById("index_tarefa_editar").value
+
+     console.log(index);
+
+     if (index !== null) {
+
+          //criar a logica para editar a tarefa
+
+     } else {
+          criarTarefa();
+     }
+
+}
+
 const criarTarefa = () => {
 
      document.getElementById("forms_criar_tarefa").addEventListener('submit', function (event) {
 
-          event.preventDefault();
+          //event.preventDefault();
 
           const tarefa = new Tarefa();
 
@@ -169,12 +185,18 @@ const preencherTabela = () => {
                }
           }
 
+          const formatarData = () => {
+               const data = new Date(tarefa.dataTermino);
+
+               return data.toString() !== "Invalid Date" ? `${data.getDate()}\/${data.getMonth() + 1}\/${data.getFullYear()}` : "Não definida";;
+          }
+
           tabelaHTML += `
                <tr>
                     <td>${index + 1}</td>
                     <td>${tarefa.nome}</td>
                     <td>${tarefa.descricao}</td>
-                    <td>${tarefa.dataTermino.toString()}</td>
+                    <td>${formatarData()}</td>
                     <td>${tarefa.status}</td>
                     <td>${definirPrioridade()}</td>
                     <td><i class="fa fa-edit" onclick="capturarTarefaEdicao(${index})" data-bs-toggle="modal" data-bs-target="#modal_tarefas"></i></td>
@@ -192,22 +214,7 @@ const capturarTarefaExclusao = (index) => {
      const tarefa = gerenciamentoTarefas.listarTarefas()[index];
      document.querySelector('#tarefa_nome_excluir').textContent = tarefa.nome;
      document.querySelector('#tarefa_index_excluir').textContent = index;
-}
-
-
-const capturarTarefaEdicao = (index) => {
-     const tarefa = gerenciamentoTarefas.listarTarefas()[index];
-
-     console.log(tarefa);
-     
-     document.querySelector('#nome_tarefa').value = tarefa.nome;
-     document.querySelector('#descricao_tarefa').value = tarefa.descricao;
-     document.querySelector('input[name="prioridade_tarefa"][value="' + tarefa.prioridade + '"]').checked = true;
-     document.querySelector('input[name="status_tarefa"][value="' + tarefa.status + '"]').checked = true;
-     document.querySelector('#categoria_tarefa').value = tarefa.categoria;
-     document.querySelector('#data_termino_tarefa').value = tarefa.dataTermino;
-     document.querySelector('input[name="alarme_tarefa"][value="' + tarefa.alarme + '"]').checked = true;
-     document.querySelector('#hora_conclusao_tarefa').value = tarefa.horaConclusao;
+     //console.log(index);
 }
 
 const confirmarExclusao = () => {
@@ -226,6 +233,21 @@ const deletarTarefa = (index) => {
 
 }
 
+const capturarTarefaEdicao = (index) => {
+     const tarefa = gerenciamentoTarefas.listarTarefas()[index];
+
+     //console.log(tarefa);
+
+     document.querySelector('#index_tarefa_editar').value = index;
+     document.querySelector('#nome_tarefa').value = tarefa.nome;
+     document.querySelector('#descricao_tarefa').value = tarefa.descricao;
+     document.querySelector('input[name="prioridade_tarefa"][value="' + tarefa.prioridade + '"]').checked = true;
+     document.querySelector('input[name="status_tarefa"][value="' + tarefa.status + '"]').checked = true;
+     document.querySelector('#categoria_tarefa').value = tarefa.categoria;
+     document.querySelector('#data_termino_tarefa').value = tarefa.dataTermino;
+     document.querySelector('input[name="alarme_tarefa"][value="' + tarefa.alarme + '"]').checked = true;
+     document.querySelector('#hora_conclusao_tarefa').value = tarefa.horaConclusao;
+}
 
 if (tarefas !== null) {
      preencherTabela();
