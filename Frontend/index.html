@@ -72,7 +72,7 @@
                               </div>
                               <div class="modal-body">
 
-                                   <form id="forms_criar_tarefa">
+                                   <form class="row g-3 needs-validation" id="forms_criar_tarefa" novalidate>
 
                                         <div class="row g-3">
 
@@ -83,6 +83,9 @@
 
                                                   <input type="text" class="form-control" id="nome_tarefa"
                                                        placeholder="" value="" required>
+                                                  <div class="invalid-feedback">
+                                                       Por favor, digite o nome da tarefa.
+                                                  </div>
                                              </div>
 
                                              <div class="col-sm-12">
@@ -90,6 +93,9 @@
                                                        tarefa:</label>
                                                   <textarea type="text" class="form-control" id="descricao_tarefa"
                                                        placeholder="" value="" required></textarea>
+                                                  <div class="invalid-feedback">
+                                                       Por favor, digite a descrição da tarefa.
+                                                  </div>
                                              </div>
 
                                              <div class="col-md-4">
@@ -166,6 +172,7 @@
 
                                                   <input type="text" class="form-control" id="categoria_tarefa"
                                                        placeholder="" value="" required>
+
                                              </div>
 
                                              <div class="col-md-4">
@@ -244,20 +251,15 @@
                     </table>
                </div>
 
-
-               <form action="submit">
-                    <input type="text" required placeholder="Teste">
-                    <button type="submit">Testando required</button>
-               </form>
-
           </main>
 
           <footer class="pt-3 mt-4 text-muted border-top">
-               &copy; 2021 - TODOList
+               &copy; 2021 - TODOList - Gustavo Garcia de Sousa
           </footer>
      </div>
 
      <script src="script.js"></script>
+     <script src="validation-forms.js"></script>
 </body>
 
 </html>
