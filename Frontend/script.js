@@ -104,37 +104,34 @@ const habilitarCampoAlarme = () => {
 
 const gerenciamentoTarefas = new GerenciamentoTarefas();
 
-const manipularTarefa = () => {
+const criarTarefa = () => {
 
      document.getElementById("forms_criar_tarefa").addEventListener('submit', function (event) {
 
           //event.preventDefault();
 
-          const index = document.querySelector('#index_tarefa_editar').value;
+          const index = parseInt(document.querySelector('#index_tarefa_editar').value);
 
-          //console.log(`${index} - ${document.querySelector('#index_tarefa_editar').value}`);
+          console.log(`${index} - ${document.querySelector('#index_tarefa_editar').value}`);
 
-          if (index === null) {
-               const tarefa = new Tarefa();
+          const tarefa = new Tarefa();
 
-               tarefa.setNome(document.getElementById("nome_tarefa").value);
-               tarefa.setDescricao(document.getElementById("descricao_tarefa").value);
-               tarefa.setPrioridade(parseInt(document.querySelector('input[name="prioridade_tarefa"]:checked').value));
-               tarefa.setStatus(document.querySelector('input[name="status_tarefa"]:checked').value);
-               tarefa.setCategoria(document.getElementById("categoria_tarefa").value);
-               tarefa.setDataTermino(document.getElementById("data_termino_tarefa").value);
-               tarefa.setAlarme(document.querySelector('input[name="alarme_tarefa"]:checked').value);
-               tarefa.setHoraConclusao(document.getElementById("hora_conclusao_tarefa").value);
+          tarefa.setNome(document.getElementById("nome_tarefa").value);
+          tarefa.setDescricao(document.getElementById("descricao_tarefa").value);
+          tarefa.setPrioridade(parseInt(document.querySelector('input[name="prioridade_tarefa"]:checked').value));
+          tarefa.setStatus(document.querySelector('input[name="status_tarefa"]:checked').value);
+          tarefa.setCategoria(document.getElementById("categoria_tarefa").value);
+          tarefa.setDataTermino(document.getElementById("data_termino_tarefa").value);
+          tarefa.setAlarme(document.querySelector('input[name="alarme_tarefa"]:checked').value);
+          tarefa.setHoraConclusao(document.getElementById("hora_conclusao_tarefa").value);
 
-               gerenciamentoTarefas.adicionarTarefa(tarefa);
+          gerenciamentoTarefas.adicionarTarefa(tarefa);
 
-               const tarefasJSON = JSON.stringify(gerenciamentoTarefas.listarTarefas());
-               localStorage.setItem('tarefas', tarefasJSON);
+          const tarefasJSON = JSON.stringify(gerenciamentoTarefas.listarTarefas());
+          localStorage.setItem('tarefas', tarefasJSON);
 
-               preencherTabela();
-          } else {
-               console.log("estou dentro do editar")
-          }
+          preencherTabela();
+
 
      });
 };
