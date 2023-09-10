@@ -145,6 +145,7 @@ const manipularTarefa = () => {
           preencherTabela();
 
      } else {
+
           const tarefa = new Tarefa();
 
           tarefa.setNome(document.getElementById("nome_tarefa").value);
@@ -163,6 +164,9 @@ const manipularTarefa = () => {
 
           preencherTabela();
      }
+
+     const botao = document.getElementById('fechar_formulario');
+     botao.click();
 
 };
 
