@@ -177,7 +177,9 @@ const preencherTabela = () => {
      const tabela = document.querySelector("#lista_tarefas table tbody");
      let tabelaHTML = "";
 
-     if (tarefas !== null) {
+     console.log(tarefas)
+
+     if (tarefas.isEmpty === false) {
           gerenciamentoTarefas.listarTarefas().forEach((tarefa, index) => {
                //console.log(tarefa);
 
@@ -234,7 +236,7 @@ const preencherTabela = () => {
 
           tabelaHTML += `
           <tr>
-          <td colspan="6" class="text-center">Nenhuma tarefa cadastrada</td>
+          <td colspan="7" class="text-center">Nenhuma tarefa cadastrada</td>
           </tr>
     `;
           tabela.innerHTML = tabelaHTML;
