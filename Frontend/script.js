@@ -104,47 +104,39 @@ const habilitarCampoAlarme = () => {
 
 const gerenciamentoTarefas = new GerenciamentoTarefas();
 
-const definirComando = () => {
-
-     const index = document.getElementById("index_tarefa_editar").value
-
-     console.log(index);
-
-     if (index !== null) {
-
-          //criar a logica para editar a tarefa
-
-     } else {
-          criarTarefa();
-     }
-
-}
-
-const criarTarefa = () => {
+const manipularTarefa = () => {
 
      document.getElementById("forms_criar_tarefa").addEventListener('submit', function (event) {
 
           //event.preventDefault();
 
-          const tarefa = new Tarefa();
+          const index = document.querySelector('#index_tarefa_editar').value;
 
-          tarefa.setNome(document.getElementById("nome_tarefa").value);
-          tarefa.setDescricao(document.getElementById("descricao_tarefa").value);
-          tarefa.setPrioridade(parseInt(document.querySelector('input[name="prioridade_tarefa"]:checked').value));
-          tarefa.setStatus(document.querySelector('input[name="status_tarefa"]:checked').value);
-          tarefa.setCategoria(document.getElementById("categoria_tarefa").value);
-          tarefa.setDataTermino(document.getElementById("data_termino_tarefa").value);
-          tarefa.setAlarme(document.querySelector('input[name="alarme_tarefa"]:checked').value);
-          tarefa.setHoraConclusao(document.getElementById("hora_conclusao_tarefa").value);
+          //console.log(`${index} - ${document.querySelector('#index_tarefa_editar').value}`);
 
-          gerenciamentoTarefas.adicionarTarefa(tarefa);
+          if (index === null) {
+               const tarefa = new Tarefa();
 
-          const tarefasJSON = JSON.stringify(gerenciamentoTarefas.listarTarefas());
-          localStorage.setItem('tarefas', tarefasJSON);
+               tarefa.setNome(document.getElementById("nome_tarefa").value);
+               tarefa.setDescricao(document.getElementById("descricao_tarefa").value);
+               tarefa.setPrioridade(parseInt(document.querySelector('input[name="prioridade_tarefa"]:checked').value));
+               tarefa.setStatus(document.querySelector('input[name="status_tarefa"]:checked').value);
+               tarefa.setCategoria(document.getElementById("categoria_tarefa").value);
+               tarefa.setDataTermino(document.getElementById("data_termino_tarefa").value);
+               tarefa.setAlarme(document.querySelector('input[name="alarme_tarefa"]:checked').value);
+               tarefa.setHoraConclusao(document.getElementById("hora_conclusao_tarefa").value);
 
-          preencherTabela();
-     })
+               gerenciamentoTarefas.adicionarTarefa(tarefa);
 
+               const tarefasJSON = JSON.stringify(gerenciamentoTarefas.listarTarefas());
+               localStorage.setItem('tarefas', tarefasJSON);
+
+               preencherTabela();
+          } else {
+               console.log("estou dentro do editar")
+          }
+
+     });
 };
 
 const limparFormularioCriarTarefa = () => {
@@ -187,7 +179,6 @@ const preencherTabela = () => {
 
           const formatarData = () => {
                const data = new Date(tarefa.dataTermino);
-
                return data.toString() !== "Invalid Date" ? `${data.getDate()}\/${data.getMonth() + 1}\/${data.getFullYear()}` : "Não definida";;
           }
 
