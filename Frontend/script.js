@@ -226,6 +226,7 @@ const preencherTabela = () => {
 
                tabelaHTML += `
                <tr>
+                    <td><input type="checkbox" class="form-check-input" id="exampleCheck1"></td>
                     <td>${index + 1}</td>
                     <td>${tarefa.nome}</td>
                     <td>${tarefa.descricao}</td>
