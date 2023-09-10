@@ -107,9 +107,17 @@ const habilitarCampoAlarme = () => {
 
 const gerenciamentoTarefas = new GerenciamentoTarefas();
 
+document.getElementById("forms_criar_tarefa").addEventListener('submit', function (event) {
+     event.preventDefault();
+
+     console.log(document.getElementById("nome_tarefa").value);
+
+     if (document.getElementById("nome_tarefa").value !== "" && document.getElementById("descricao_tarefa").value !== "" && document.getElementById("categoria_tarefa").value !== "") {
+          manipularTarefa();
+     }
+});
+
 const manipularTarefa = () => {
-
-
 
      const index = parseInt(document.querySelector('#index_tarefa_editar').value);
 
@@ -156,7 +164,6 @@ const manipularTarefa = () => {
           preencherTabela();
      }
 
-
 };
 
 const limparFormularioCriarTarefa = () => {
@@ -176,8 +183,6 @@ const preencherTabela = () => {
 
      const tabela = document.querySelector("#lista_tarefas table tbody");
      let tabelaHTML = "";
-
-     console.log(tarefas)
 
      if (gerenciamentoTarefas.listarTarefas().length > 0) {
           gerenciamentoTarefas.listarTarefas().forEach((tarefa, index) => {
@@ -232,7 +237,7 @@ const preencherTabela = () => {
 
           tabela.innerHTML = tabelaHTML;
      } else {
-          console.log("não tem objeto")
+          //console.log("não tem objeto")
 
           tabelaHTML += `
           <tr>

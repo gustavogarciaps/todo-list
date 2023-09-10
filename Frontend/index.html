@@ -72,7 +72,7 @@
                               </div>
                               <div class="modal-body">
 
-                                   <form class="needs-validation" novalidate id="forms_criar_tarefa">
+                                   <form id="forms_criar_tarefa">
 
                                         <div class="row g-3">
 
@@ -83,7 +83,6 @@
 
                                                   <input type="text" class="form-control" id="nome_tarefa"
                                                        placeholder="" value="" required>
-                                                  <span class="invalid-feedback">Por favor, preencha este campo.</span>
                                              </div>
 
                                              <div class="col-sm-12">
@@ -91,7 +90,6 @@
                                                        tarefa:</label>
                                                   <textarea type="text" class="form-control" id="descricao_tarefa"
                                                        placeholder="" value="" required></textarea>
-                                                  <span class="invalid-feedback">Por favor, preencha este campo.</span>
                                              </div>
 
                                              <div class="col-md-4">
@@ -175,7 +173,7 @@
                                                        Limite:</label>
 
                                                   <input type="date" class="form-control" id="data_termino_tarefa"
-                                                       placeholder="" value="" required>
+                                                       placeholder="" value="">
                                              </div>
 
                                              <div class="col-md-4">
@@ -183,7 +181,7 @@
                                                        Conclusão:</label>
 
                                                   <input type="time" class="form-control" id="hora_conclusao_tarefa"
-                                                       placeholder="" value="" required disabled>
+                                                       placeholder="" value="" disabled>
                                              </div>
                                         </div>
 
@@ -191,8 +189,8 @@
 
                                         <button type="button" class="btn btn-secondary"
                                              data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"
-                                             id="capturar_formulario" onclick="manipularTarefa()">Salvar</button>
+                                        <button type="submit" class="btn btn-primary"
+                                             id="capturar_formulario">Salvar</button>
                                    </form>
                               </div>
                          </div>
@@ -247,10 +245,16 @@
                </div>
 
 
-     </div>
-     </main>
+               <form action="submit">
+                    <input type="text" required placeholder="Teste">
+                    <button type="submit">Testando required</button>
+               </form>
 
+          </main>
 
+          <footer class="pt-3 mt-4 text-muted border-top">
+               &copy; 2021 - TODOList
+          </footer>
      </div>
 
      <script src="script.js"></script>
