@@ -1,0 +1,37 @@
+plugins {
+    id 'groovy'
+    id 'java'
+    id 'application'
+}
+
+application {
+    mainClass = 'App'
+}
+
+run {
+    standardInput = System.in
+}
+
+group = 'br.com.todo-list'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation fileTree('/home/gustavo/.sdkman/candidates/groovy/current/lib') {
+        include '*.jar'
+        include '*/*.jar'
+    }
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.8.2'
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '4.11.0'
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.6.0'
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+    }
+}
