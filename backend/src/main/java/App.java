@@ -1,5 +1,3 @@
-package view;
-
 import controller.GerenciamentoTarefas;
 import model.Categoria;
 import model.Status;
